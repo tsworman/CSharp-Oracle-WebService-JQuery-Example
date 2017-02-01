@@ -1,0 +1,49 @@
+<html>
+<head>
+	<script type="text/javascript" src="./javascript/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+	    $('#loginForm').submit(function (e) {
+	        var url = $(this).closest('form').attr('action'),
+                data = $(this).closest('form').serialize();
+	        loginfunc(e);
+	        e.preventDefault();
+	    });
+	});
+
+	function loginfunc(e) {
+            var url = 'http://localhost:someport/WebService1.asmx/Login';
+	        $.ajax({
+	            method: 'POST',
+	            data: $("#loginForm").serialize(),
+	            url: url,
+	            async: true,
+	            success: function (json) {
+	                console.log(json);                
+	            },
+
+	            error: function (e) {
+	                console.log(e.responseText);
+	            }
+	        });
+	}
+
+	</script>
+	<title>Web Interface - Login</title>
+</head>
+<body>
+	<form id="loginForm" action="">\
+		<p>Username: <input type="text" name="user_id" size="8" width="12"></input></p>
+		<p>Password: <input type="password" name="password" size="12" width="12"></input></p>
+		<p>Data source: 
+			<select name="server">
+				<option value="someserver">SomeTest Oracle Database Server (Dev)</option>
+            </select>
+        </p>
+		<p>
+			<input type="submit" value="Login"></input>
+		</p>
+	</form>
+</body>
+</html>
